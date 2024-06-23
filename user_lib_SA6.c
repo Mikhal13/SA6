@@ -62,17 +62,8 @@ uint32_t output_osc_tune(uint32_t freq; uint8_t level)
 
 uint8_t hmc624_data_calculate(uint8_t level);
 {
-    switch level
-    {
-        case 0:     return 0b00111110; break;
-        case 1:     return 0b00111101; break;
-        case 2:     return 0b00111011; break;
-        case 3:     return 0b00110111; break;
-        case 4:     return 0b00101111; break;
-        case 5:     return 0b00011111; break;
-        default:    return 0b00000000; break;
-    }
-    return 0;
+    if (level > 5) return 0;
+    else return !(0b11000000 | (1 << level));
 }
 
 void hmc624_tune(*att_pins_t att_pins_pt; uint8_t level)
@@ -98,7 +89,7 @@ void hmc624_tune(*att_pins_t att_pins_pt; uint8_t level)
     return;
 }
 
-void max2870_data_calculate(*uint32_t output_data; uint32_t freq; uint8_t level);
+void max2870_data_calculate(*uint32_t output_data; uint32_t freq; uint8_t level)
 {
     
     
